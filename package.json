@@ -1,0 +1,15 @@
+{
+  "name": "license-drama-check",
+  "version": "1.0.0",
+  "description": "Check node_modules for \"open source\" licenses altered to deny license to certain entities",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.3.2",
+    "shelljs": "^0.8.2"
+  }
+}
