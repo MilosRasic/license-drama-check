@@ -3,8 +3,6 @@ const fs = require('fs');
 const shell = require('shelljs');
 const colors = require('colors/safe');
 
-let hasErrors = false;
-
 function hasNodeModules() {
 	const dirs = shell.ls();
 
@@ -12,6 +10,8 @@ function hasNodeModules() {
 }
 
 function checkPackage(directory) {
+	const pathBackup = shell.pwd().stdout;
+
 	shell.cd(directory);
 
 	const ls = shell.ls();
@@ -29,7 +29,7 @@ function checkPackage(directory) {
 		checkNodeModules();
 	}
 
-	shell.cd('..');
+	shell.cd(pathBackup);
 }
 
 function checkNodeModules() {
@@ -40,11 +40,19 @@ function checkNodeModules() {
 	shell.cd('..');
 }
 
-if (!hasNodeModules()) {
-	console.error(colors.red('node_modules not found'));
-	process.exit(1);
-}
+module.exports = function() {
+	let hasErrors = false;
 
-checkNodeModules();
+	if (!hasNodeModules()) {
+		console.error(colors.red('node_modules not found'));
+		return false;
+	}
 
-process.exit(hasErrors ? 1 : 0);
+	checkNodeModules();
+
+	if (!hasErrors) {
+		console.log(colors.green('all clear'));
+	}
+
+	return hasErrors;
+};

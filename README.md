@@ -1,2 +1,6 @@
 # license-drama-check
-Check node_modules for \"open source\" licenses altered to deny license to certain entities
+
+A simple Node.js package to check your dependencies for any open source license shenanigans that deny license to certain entities.
+
+
+
